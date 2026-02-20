@@ -1,5 +1,6 @@
 ✅ FINAL METRICS & EVALUATION CHECKLIST
 (2D → 2.5D / 3D using Gaussian Splatting)
+
 1️⃣ Image Quality Metrics (MANDATORY – instant reject if missing)
 ☐ PSNR (dB)
 Novel view synthesis
@@ -13,9 +14,8 @@ Network used: Alex / VGG (must be stated)
 Lower is better (explicitly mentioned)
 📌 Report format
 Method
-PSNR ↑
-SSIM ↑
-LPIPS ↓
+PSNR ↑ SSIM ↑ LPIPS ↓
+
 2️⃣ Depth / Geometry Consistency Metrics (CRITICAL for your claim)
 ☐ Depth RMSE
 ☐ Absolute Relative Error (AbsRel)
@@ -24,6 +24,7 @@ LPIPS ↓
 Real GT depth OR
 COLMAP pseudo-depth (explicitly acknowledged)
 📌 If NO depth metrics → your “2.5D/3D” claim is invalid.
+
 3️⃣ Rendering & Computational Performance (Gaussian Splatting ≠ NeRF)
 ☐ Rendering FPS
 Resolution specified
@@ -33,37 +34,44 @@ Total optimization time
 Iterations / epochs mentioned
 ☐ Memory usage (VRAM in GB)
 📌 Reviewers LOVE efficiency numbers.
+
 4️⃣ Representation Quality (Strong but Optional)
 ☐ Number of Gaussians
 ☐ Gaussian pruning ratio
 ☐ Scene density vs quality trade-off
 📌 This makes your work look engineered, not hacked.
+
 5️⃣ Baseline Comparison (ABSOLUTE REQUIREMENT)
 ☐ COLMAP + Mesh Rendering
 ☐ Vanilla NeRF
 ☐ Official 3D Gaussian Splatting
 ☐ Same dataset, same train/test split
 📌 Even one missing baseline = high rejection risk
+
 6️⃣ Ablation Studies (SMALL but NON-NEGOTIABLE)
 ☐ With vs without depth guidance
 ☐ Sparse vs dense views
 ☐ Gaussian count vs quality
 📌 Minimum: 1 table + 1 qualitative figure
+
 7️⃣ Qualitative Results (SUPPORTING, not replacing metrics)
 ☐ Novel view renders (side-by-side)
 ☐ Failure cases shown
 ☐ Same camera viewpoints for all methods
 🚫 Do NOT rely only on visuals — that screams “demo paper”.
+
 8️⃣ Dataset & Protocol Transparency
 ☐ Dataset name + size
 ☐ Train / test split explained
 ☐ Number of input views stated
 ☐ Camera calibration source
 📌 Missing protocol details = reviewer distrust.
+
 9️⃣ Claims ↔ Metrics Consistency (MOST COMMON REJECTION)
 ☐ Every claim backed by a metric
 ☐ No words like “significant improvement” without numbers
 ☐ No claim of “true 3D reconstruction” without GT geometry
+
 🔟 Paper-Ready Sanity Check
 ☐ Tables use ↑ ↓ arrows correctly
 ☐ Units mentioned everywhere
