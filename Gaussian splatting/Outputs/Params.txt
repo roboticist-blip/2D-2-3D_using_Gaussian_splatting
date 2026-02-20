@@ -1,43 +1,71 @@
-print("## Summary of Pipeline Parameters for Conference Paper")
-print("---------------------------------------------------")
-
-# 1. Input Data Characteristics
-print("### 1. Input Data Characteristics")
-print(f"- Input Video Filename: {video_filename}")
-print(f"- Extracted Frames Per Second (FPS): {fps}")
-print(f"- Total Number of Extracted Frames: {len(frames)}")
-
-# 2. COLMAP Reconstruction Metrics
-print("\n### 2. COLMAP Reconstruction Metrics")
-print(f"- Initial Number of 3D Points (from COLMAP): {N:,} Gaussians")
-# Note: Exact number of reconstructed cameras and COLMAP time need to be extracted from COLMAP logs/output if precise values are required.
-
-# 3. Gaussian Splatting Training Details
-print("\n### 3. Gaussian Splatting Training Details")
-print(f"- Number of Training Iterations: {iterations:,}")
-print(f"- Output Model Directory: {output_model_dir}")
-# Note: Final Loss Values (L1, PSNR) and training time need to be extracted from training logs/output.
-
-# 4. Cropping Parameters and Results
-print("\n### 4. Cropping Parameters and Results")
-print(f"- Bounding Box Min (X, Y, Z): {bbox_min.tolist()}")
-print(f"- Bounding Box Max (X, Y, Z): {bbox_max.tolist()}")
-print(f"- Number of Cropped Gaussians: {M:,}")
-if 'orig_mb' in locals() and 'out_mb' in locals():
-    print(f"- Original Model Size: {orig_mb:.2f} MB")
-    print(f"- Cropped Model Size: {out_mb:.2f} MB")
-    print(f"- Percentage of Gaussians Retained: {100*M/N:.1f}%")
-    print(f"- Storage Reduction: {100*(orig_mb-out_mb)/orig_mb:.1f}%")
-
-# 5. Qualitative Visualizations
-print("\n### 5. Qualitative Visualizations Generated")
-print(f"- Axis Distribution Histogram: /content/axis_distribution.png")
-print(f"- Full Scene 3D Preview: /content/point_cloud_3d_preview.png")
-print(f"- Cropped Object Preview: /content/cropped_preview.png")
-
-# 6. System Specifications
-print("\n### 6. System Specifications")
-if torch.cuda.is_available():
-    print(f"- GPU Used: {torch.cuda.get_device_name(0)}")
-else:
-    print("- GPU Used: Not available or not detected")
+✅ FINAL METRICS & EVALUATION CHECKLIST
+(2D → 2.5D / 3D using Gaussian Splatting)
+1️⃣ Image Quality Metrics (MANDATORY – instant reject if missing)
+☐ PSNR (dB)
+Novel view synthesis
+Mean ± Std across test views
+Same camera poses for all methods
+☐ SSIM
+Window size stated
+Averaged over all test images
+☐ LPIPS
+Network used: Alex / VGG (must be stated)
+Lower is better (explicitly mentioned)
+📌 Report format
+Method
+PSNR ↑
+SSIM ↑
+LPIPS ↓
+2️⃣ Depth / Geometry Consistency Metrics (CRITICAL for your claim)
+☐ Depth RMSE
+☐ Absolute Relative Error (AbsRel)
+☐ Scale-Invariant Error (Si-log)
+☐ Depth GT source clearly stated
+Real GT depth OR
+COLMAP pseudo-depth (explicitly acknowledged)
+📌 If NO depth metrics → your “2.5D/3D” claim is invalid.
+3️⃣ Rendering & Computational Performance (Gaussian Splatting ≠ NeRF)
+☐ Rendering FPS
+Resolution specified
+GPU model stated
+☐ Training time
+Total optimization time
+Iterations / epochs mentioned
+☐ Memory usage (VRAM in GB)
+📌 Reviewers LOVE efficiency numbers.
+4️⃣ Representation Quality (Strong but Optional)
+☐ Number of Gaussians
+☐ Gaussian pruning ratio
+☐ Scene density vs quality trade-off
+📌 This makes your work look engineered, not hacked.
+5️⃣ Baseline Comparison (ABSOLUTE REQUIREMENT)
+☐ COLMAP + Mesh Rendering
+☐ Vanilla NeRF
+☐ Official 3D Gaussian Splatting
+☐ Same dataset, same train/test split
+📌 Even one missing baseline = high rejection risk
+6️⃣ Ablation Studies (SMALL but NON-NEGOTIABLE)
+☐ With vs without depth guidance
+☐ Sparse vs dense views
+☐ Gaussian count vs quality
+📌 Minimum: 1 table + 1 qualitative figure
+7️⃣ Qualitative Results (SUPPORTING, not replacing metrics)
+☐ Novel view renders (side-by-side)
+☐ Failure cases shown
+☐ Same camera viewpoints for all methods
+🚫 Do NOT rely only on visuals — that screams “demo paper”.
+8️⃣ Dataset & Protocol Transparency
+☐ Dataset name + size
+☐ Train / test split explained
+☐ Number of input views stated
+☐ Camera calibration source
+📌 Missing protocol details = reviewer distrust.
+9️⃣ Claims ↔ Metrics Consistency (MOST COMMON REJECTION)
+☐ Every claim backed by a metric
+☐ No words like “significant improvement” without numbers
+☐ No claim of “true 3D reconstruction” without GT geometry
+🔟 Paper-Ready Sanity Check
+☐ Tables use ↑ ↓ arrows correctly
+☐ Units mentioned everywhere
+☐ Mean ± Std reported
+☐ Reproducibility section included
