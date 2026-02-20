@@ -388,11 +388,6 @@ Yes. Load `cropped_object.ply` into the Gaussian Splatting viewer script and ren
 - [COLMAP: Structure-from-Motion Revisited](https://colmap.github.io/) — Schönberger & Frahm, CVPR 2016
 - [graphdeco-inria/gaussian-splatting](https://github.com/graphdeco-inria/gaussian-splatting) — Official implementation
 
----
-
-## 📄 License
-
-This project is released under the **MIT License**. Note that the underlying Gaussian Splatting implementation from graphdeco-inria has its own [license terms](https://github.com/graphdeco-inria/gaussian-splatting/blob/main/LICENSE.md) — please review them before commercial use.
 
 ---
 
