@@ -1,0 +1,43 @@
+print("## Summary of Pipeline Parameters for Conference Paper")
+print("---------------------------------------------------")
+
+# 1. Input Data Characteristics
+print("### 1. Input Data Characteristics")
+print(f"- Input Video Filename: {video_filename}")
+print(f"- Extracted Frames Per Second (FPS): {fps}")
+print(f"- Total Number of Extracted Frames: {len(frames)}")
+
+# 2. COLMAP Reconstruction Metrics
+print("\n### 2. COLMAP Reconstruction Metrics")
+print(f"- Initial Number of 3D Points (from COLMAP): {N:,} Gaussians")
+# Note: Exact number of reconstructed cameras and COLMAP time need to be extracted from COLMAP logs/output if precise values are required.
+
+# 3. Gaussian Splatting Training Details
+print("\n### 3. Gaussian Splatting Training Details")
+print(f"- Number of Training Iterations: {iterations:,}")
+print(f"- Output Model Directory: {output_model_dir}")
+# Note: Final Loss Values (L1, PSNR) and training time need to be extracted from training logs/output.
+
+# 4. Cropping Parameters and Results
+print("\n### 4. Cropping Parameters and Results")
+print(f"- Bounding Box Min (X, Y, Z): {bbox_min.tolist()}")
+print(f"- Bounding Box Max (X, Y, Z): {bbox_max.tolist()}")
+print(f"- Number of Cropped Gaussians: {M:,}")
+if 'orig_mb' in locals() and 'out_mb' in locals():
+    print(f"- Original Model Size: {orig_mb:.2f} MB")
+    print(f"- Cropped Model Size: {out_mb:.2f} MB")
+    print(f"- Percentage of Gaussians Retained: {100*M/N:.1f}%")
+    print(f"- Storage Reduction: {100*(orig_mb-out_mb)/orig_mb:.1f}%")
+
+# 5. Qualitative Visualizations
+print("\n### 5. Qualitative Visualizations Generated")
+print(f"- Axis Distribution Histogram: /content/axis_distribution.png")
+print(f"- Full Scene 3D Preview: /content/point_cloud_3d_preview.png")
+print(f"- Cropped Object Preview: /content/cropped_preview.png")
+
+# 6. System Specifications
+print("\n### 6. System Specifications")
+if torch.cuda.is_available():
+    print(f"- GPU Used: {torch.cuda.get_device_name(0)}")
+else:
+    print("- GPU Used: Not available or not detected")
